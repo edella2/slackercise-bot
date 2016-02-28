@@ -81,15 +81,46 @@ controller.on('rtm_close', function (bot) {
  */
 // BEGIN EDITING HERE!
 
-controller.on('bot_channel_join', function (bot, message) {
+// setInterval(function(){ bot.say(
+//       {
+//         text: 'checkout http://slackercise.herokuapp.com',
+//         channel: '#slacker-cise'
+//       }
+//     ); }, 3000);
+
+var WORK_OUTS = [
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+]
+
+controller.on('channel_joined', function (bot, message) {
     bot.reply(message, "I'm here!")
+
+    bot.say({text: "What upppp", channel: "C0NNW7KLL"})
+    setInterval(function(){ bot.say(
+      {
+        text: WORK_OUTS[0].text,
+        channel: message.channel,
+      }
+    ); }, 18000000);
 });
+
 
 controller.hears(
     ['hello', 'hi', 'greetings'],
     ['direct_message','mention', 'direct_mention'],
     function (bot, message) {
     bot.reply(message, 'Hello!');
+    bot.say(
+      {
+        text: WORK_OUTS[0].text,
+        unfurl_links: true,
+        channel: message.channel
+      }
+    );
+
 });
 
 controller.hears(
@@ -110,11 +141,10 @@ controller.hears(
               image: data["profile"]["image_192"],
               email: data["profile"]["email"]
             } };
-
-            console.log(user_data)
-            // console.log(response);
         })
     });
+
+
 
 
 /**
