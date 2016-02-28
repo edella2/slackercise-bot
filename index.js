@@ -141,7 +141,8 @@ controller.hears(
               image: data["profile"]["image_192"],
               email: data["profile"]["email"]
             } };
-        })
+        });
+        request.post("https://slackercise.herokuapp.com/users").form({user_data})
     });
 
 
