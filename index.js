@@ -127,7 +127,7 @@ controller.hears(
     ["addme"],
     ["direct_message", 'mention', "direct_mention"],
     function(bot, message) {
-        bot.say({text: "What upppp", channel: message.channel})
+        bot.say({text: "I've added you!", channel: message.channel})
         var request = require('request');
         request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
             var data = JSON.parse(body).user
