@@ -143,7 +143,7 @@ controller.hears(
               email: data["profile"]["email"]
             } };
         });
-        request.post("https://slackercise.herokuapp.com/users").form({user_data})
+        request.post("https://slackercise.herokuapp.com/users").form(user_data)
     });
 
 
