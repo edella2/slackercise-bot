@@ -112,7 +112,7 @@ controller.hears(
     ['hello', 'hi', 'greetings'],
     ['direct_message','mention', 'direct_mention'],
     function (bot, message) {
-    bot.reply(message, 'Hello! fafdafadfa ');
+    bot.reply(message, 'Hello!');
     bot.say(
       {
         text: WORK_OUTS[0].text,
@@ -125,9 +125,9 @@ controller.hears(
 
 controller.hears(
     ["addme"],
-    ["direct_message", "direct_mention"],
+    ["direct_message", 'mention', "direct_mention"],
     function(bot, message) {
-        bot.say({text: "What upppp", channel: "C0NNW7KLL"})
+        bot.say({text: "What upppp", channel: message.channel})
         var request = require('request');
         request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
             var data = JSON.parse(body).user
