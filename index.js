@@ -127,6 +127,7 @@ controller.hears(
     ["addme"],
     ["direct_message", "direct_mention"],
     function(bot, message) {
+        bot.say({text: "What upppp", channel: "C0NNW7KLL"})
         var request = require('request');
         request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
             var data = JSON.parse(body).user
@@ -142,7 +143,7 @@ controller.hears(
               email: data["profile"]["email"]
             } };
         });
-        request.post("http://slackercise.herokuapp.com/users").form({user_data})
+        request.post("https://slackercise.herokuapp.com/users").form({user_data})
     });
 
 
