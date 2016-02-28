@@ -81,13 +81,70 @@ controller.on('rtm_close', function (bot) {
  */
 // BEGIN EDITING HERE!
 
-controller.on('bot_channel_join', function (bot, message) {
+// setInterval(function(){ bot.say(
+//       {
+//         text: 'checkout http://slackercise.herokuapp.com',
+//         channel: '#slacker-cise'
+//       }
+//     ); }, 3000);
+
+var WORK_OUTS = [
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+]
+
+controller.on('channel_joined', function (bot, message) {
     bot.reply(message, "I'm here!")
+
+    bot.say({text: "What upppp", channel: "C0NNW7KLL"})
+    setInterval(function(){ bot.say(
+      {
+        text: WORK_OUTS[0].text,
+        channel: message.channel,
+      }
+    ); }, 18000000);
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
+
+controller.hears(
+    ['hello', 'hi', 'greetings'],
+    ['direct_message','mention', 'direct_mention'],
+    function (bot, message) {
     bot.reply(message, 'Hello!');
+    bot.say(
+      {
+        text: WORK_OUTS[0].text,
+        unfurl_links: true,
+        channel: message.channel
+      }
+    );
+
 });
+
+controller.hears(
+    ["addme"],
+    ["direct_message", "direct_mention"],
+    function(bot, message) {
+        var request = require('request');
+        request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
+            var data = JSON.parse(body).user
+            // console.log(data)
+            var user_data =
+            { user: {
+              team_id: data["team_id"],
+              name: data["name"],
+              real_name: data["real_name"],
+              first_name: data["profile"]["first_name"],
+              last_name: data["profile"]["last_name"],
+              image: data["profile"]["image_192"],
+              email: data["profile"]["email"]
+            } };
+        })
+    });
+
+
 
 
 /**
