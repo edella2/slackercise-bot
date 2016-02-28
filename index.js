@@ -85,9 +85,36 @@ controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, "I'm here!")
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
+controller.hears(
+    ['hello', 'hi', 'greetings'],
+    ['direct_message','mention', 'direct_mention'],
+    function (bot, message) {
     bot.reply(message, 'Hello!');
 });
+
+controller.hears(
+    ["addme"],
+    ["direct_message", "direct_mention"],
+    function(bot, message) {
+        var request = require('request');
+        request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
+            var data = JSON.parse(body).user
+            // console.log(data)
+            var user_data =
+            { user: {
+              team_id: data["team_id"],
+              name: data["name"],
+              real_name: data["real_name"],
+              first_name: data["profile"]["first_name"],
+              last_name: data["profile"]["last_name"],
+              image: data["profile"]["image_192"],
+              email: data["profile"]["email"]
+            } };
+
+            console.log(user_data)
+            // console.log(response);
+        })
+    });
 
 
 /**
