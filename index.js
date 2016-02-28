@@ -112,7 +112,7 @@ controller.hears(
     ['hello', 'hi', 'greetings'],
     ['direct_message','mention', 'direct_mention'],
     function (bot, message) {
-    bot.reply(message, 'Hello!');
+    bot.reply(message, 'Hello! fafdafadfa ');
     bot.say(
       {
         text: WORK_OUTS[0].text,
