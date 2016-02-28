@@ -118,13 +118,6 @@ controller.hears(
         text: "Each day, I will post 5 exercises to this channel. When you see an exercise, do it and then throw a :+1: my way.",
         channel: message.channel
     })
-    bot.say(
-      {
-        text: WORK_OUTS[0].text,
-        unfurl_links: true,
-        channel: message.channel
-      }
-    );
 
 });
 
