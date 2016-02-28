@@ -89,22 +89,17 @@ controller.on('rtm_close', function (bot) {
 //     ); }, 3000);
 
 var WORK_OUTS = [
-    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Get on the floor and do 20 crunches!\n http://giphy.com/gifs/parks-and-recreation-andy-dwyer-tom-haverford-cCCFzyobPIklG", gif: "http://giphy.com/gifs/parks-and-recreation-andy-dwyer-tom-haverford-cCCFzyobPIklG"},
+    {text: "What time is it? Time to do 20 push-ups!\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "You've earned some time away from your desk. Go for a 5-10 minute walk.\n http://giphy.com/gifs/cat-funny-WqmYGa2LjQlTG", gif: "http://giphy.com/gifs/cat-funny-WqmYGa2LjQlTG"},
+    {text: "Feeling crazy? How about doing 20 jumping jacks? \n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "You'redoing Great! Now, let's do 20 chair dips \n http://cdn.makeagif.com/media/8-04-2015/hLCIsW.gif", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"}
 ]
 
 controller.on('channel_joined', function (bot, message) {
     bot.reply(message, "I'm here!")
 
     bot.say({text: "What upppp", channel: "C0NNW7KLL"})
-    setInterval(function(){ bot.say(
-      {
-        text: WORK_OUTS[0].text,
-        channel: message.channel,
-      }
-    ); }, 18000000);
 });
 
 
@@ -113,6 +108,16 @@ controller.hears(
     ['direct_message','mention', 'direct_mention'],
     function (bot, message) {
     bot.reply(message, 'Hello!');
+    bot.say(
+    {
+        text: "Hello humans! I am your friendly neighborhood Slackercise, here to help you get fit in the comfort of your own office.",
+        channel: message.channel
+    })
+    bot.say(
+    {
+        text: "Each day, I will post 5 exercises to this channel. When you see an exercise, do it and then throw a :+1: my way.",
+        channel: message.channel
+    })
     bot.say(
       {
         text: WORK_OUTS[0].text,
@@ -123,8 +128,10 @@ controller.hears(
 
 });
 
+
+
 controller.hears(
-    ["addme"],
+    ["addme", ":thumbsup"],
     ["direct_message", 'mention', "direct_mention"],
     function(bot, message) {
         bot.say({text: "What upppp", channel: message.channel})
@@ -142,9 +149,24 @@ controller.hears(
               image: data["profile"]["image_192"],
               email: data["profile"]["email"]
             } };
+            request.post("http://localhost:3000/users").form(user_data)
         });
-        request.post("https://slackercise.herokuapp.com/users").form({user_data})
     });
+
+controller.hears(
+    ["start"],
+    ["direct_message", 'mention', "direct_mention"],
+    function(bot, message) {
+        bot.say({text: "What upppp", channel: message.channel})
+        setInterval(function(){ bot.say(
+              {
+                text: WORK_OUTS[Math.floor(Math.random()*WORK_OUTS.length)].text,
+                channel: message.channel,
+              }
+            ); }, 15000);
+        });
+
+
 
 
 
