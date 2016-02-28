@@ -89,10 +89,10 @@ controller.on('rtm_close', function (bot) {
 //     ); }, 3000);
 
 var WORK_OUTS = [
-    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
-    {text: "Do 50 squats http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
+    {text: "Do 50 squats\n http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy", gif: "http://giphy.com/gifs/transparent-gif-QcaWr0rSFenLy"},
 ]
 
 controller.on('channel_joined', function (bot, message) {
@@ -141,7 +141,8 @@ controller.hears(
               image: data["profile"]["image_192"],
               email: data["profile"]["email"]
             } };
-        })
+        });
+        request.post("https://slackercise.herokuapp.com/users").form({user_data})
     });
 
 
