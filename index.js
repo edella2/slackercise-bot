@@ -130,6 +130,9 @@ controller.hears(
         bot.say({text: "I've added you!", channel: message.channel})
         var request = require('request');
         request("https://slack.com/api/users.info?token=" + bot.config.token + "&user=" + message.user, function(error, response, body) {
+            if (error) {
+                bot.say({text: error, channel: message.channel})
+            }
             var data = JSON.parse(body).user
             // console.log(data)
             var user_data =
@@ -143,7 +146,6 @@ controller.hears(
               email: data["profile"]["email"]
             } };
         });
-        bot.say({text: user_data, channel: message.channel})
         // request.post("https://slackercise.herokuapp.com/users").form(user_data)
     });
 
